@@ -1,0 +1,1 @@
+export { default as buildPostResponse } from './post/response'

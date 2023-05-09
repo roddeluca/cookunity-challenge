@@ -1,15 +1,16 @@
 import axios from "axios";
-import { CurrencyDataResponse } from '../models'
-
+import { CurrencyDataResponse } from '../types'
+import { defaultBaseCurrency, defaultApplicationAccept } from '../methods/constants'
+import { ratesFormatter } from '../formatter'
 
 const fetchCurrencyData = async (symbol: string) => {
   try {
     const { data, status } = await axios.get<CurrencyDataResponse>(
-      `https://api.apilayer.com/fixer/latest?symbols=${symbol}&base=USD`,
+      `${process.env.API_APILAYER_URL}/fixer/latest?symbols=${symbol}&base=${defaultBaseCurrency}`,
       {
         headers: {
-          apikey: "wFU3E13cZp30vlmFSI8FVzWauDB9QdVA",
-          Accept: "application/json",
+          apikey: `${process.env.APILAYER_APIKEY}`,
+          Accept: defaultApplicationAccept,
         },
         transformResponse: (data) => {
           const jsonResponse = JSON.parse(data)
@@ -19,7 +20,7 @@ const fetchCurrencyData = async (symbol: string) => {
             timestamp: jsonResponse.timestamp,
             base: jsonResponse.base,
             date: jsonResponse.date,
-            rates: new Map(Object.entries(jsonResponse.rates))
+            rates: ratesFormatter(jsonResponse.rates)
           }
         }
       }

@@ -1,13 +1,16 @@
 import axios from "axios";
-import { IpDataResponse } from '../models'
+import { IpDataResponse } from '../types'
+import { defaultApplicationAccept } from "../methods/constants";
+
+// ver dependences qs
 
 const fetchIpData = async (ip: string): Promise<IpDataResponse> => {
-  const url = `http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,lat,lon,currency,query`;
+  const url = `${process.env.IP_API_URL}/json/${ip}?fields=status,message,country,countryCode,lat,lon,currency,query`;
 
   try {
     const { data, status } = await axios.get<IpDataResponse>(url, {
       headers: {
-        Accept: "application/json",
+        Accept: defaultApplicationAccept,
       },
     });
 
