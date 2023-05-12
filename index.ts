@@ -1,15 +1,19 @@
-import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { tracesRoutes } from "./src/api";
+import express, { Express } from "express";
+import { tracesRoutes, statisticsRoutes } from "./src/api";
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` })
+dotenv.config()
 
 const app: Express = express();
 app.use(express.json());
-app.use('/', tracesRoutes)
+
+app.use('/traces', tracesRoutes)
+app.use('/statistics', statisticsRoutes)
 
 const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
+
+// export default app;
