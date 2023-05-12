@@ -9,7 +9,7 @@ The project is pretty simple, there are clients where I put the external calls a
 To run the project you should do:
 
 ``` bash
-$ docker compose up --force-recreate 
+$ docker compose up
 ```
 
 To run the tests you should do:
