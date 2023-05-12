@@ -1,26 +1,22 @@
 import { Request } from "express";
-import { fetchIpData, fetchCurrencyData } from '../../../../clients'
-import { buildPostResponse } from '../../responses'
+import { fetchIpData, fetchCurrencyData } from "../../../../clients";
+import { buildPostResponse } from "../../responses";
 import { TracesResponse } from "../../../../types";
-import { schema } from './schema'
+import { schema } from "./schema";
+import { saveTracedCountry } from "../../../../cache";
 
 const postHandler = async ({ body }: Request): Promise<TracesResponse> => {
-  const { error, value } = schema.validate(body);
+  try {
+    const { value } = schema.validate(body);
+    const ipData = await fetchIpData(value.ip);
+    const symbolsData = await fetchCurrencyData(ipData.currency);
 
-  if (error === undefined) {
-    try {
-        const ipData = await fetchIpData(value.ip)
-        const symbolsData = await fetchCurrencyData(ipData.currency);
-        
-        const response = buildPostResponse(ipData, symbolsData)
-        return response
+    const response = buildPostResponse(ipData, symbolsData);
+    saveTracedCountry(response);
 
-    } catch (error) {
-        throw error
-    } 
-    
-  } else {
-    throw new Error(error.message);
+    return response;
+  } catch (error) {
+    throw error;
   }
 };
 

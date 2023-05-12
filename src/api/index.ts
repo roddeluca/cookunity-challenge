@@ -1,2 +1,2 @@
 export { tracesRoutes } from './methods/traces'
-export { default as handlerGetStatistics } from './methods/statistics/handler'
+export { statisticsRoutes } from './methods/statistics'

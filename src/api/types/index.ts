@@ -1,1 +1,5 @@
-export { CurrencyDataResponse, IpDataResponse, TracesCurrencyResponse, TracesResponse } from './traces'
+export { TracesCurrencyResponse, TracesResponse } from './traces'
+export { CurrencyDataResponse } from './layerApi'
+export { IpDataResponse} from './ipApi'
+export { TracedCountries, Country } from './tracedCountries'
+export { StatisticsResponse, StatisticResponse } from './statistics'

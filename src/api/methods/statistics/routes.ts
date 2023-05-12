@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
 import { isNativeError } from "util/types";
-import { postHandler } from './handlers'
+import { getHandler } from './handlers'
 
 const routes = Router();
 
-routes.post("/", async (req: Request, res: Response) => {
+routes.get("/", async (req: Request, res: Response) => {
     try {
-      const response = await postHandler(req);
+      const response = await getHandler();
       res.send(response);
   
     } catch (error) {

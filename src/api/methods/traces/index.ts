@@ -1,1 +1,1 @@
-export {default as tracesRoutes } from './routes'
+export { default as tracesRoutes } from './routes'

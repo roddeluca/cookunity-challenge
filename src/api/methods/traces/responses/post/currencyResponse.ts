@@ -7,6 +7,8 @@ const buildCurrencyResponse = (
   currencyData: CurrencyDataResponse
 ): TracesCurrencyResponse[] => {
   let response: TracesCurrencyResponse[] = [];
+  
+  if (currencyData.rates.size === undefined) return response
 
   currencyData.rates.forEach((value, key) => {
     response.push({
