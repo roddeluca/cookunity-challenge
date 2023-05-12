@@ -12,6 +12,12 @@ To run the project you should do:
 $ docker compose up --force-recreate 
 ```
 
+To run the tests you should do:
+
+``` bash
+$ npm run test
+```
+
 
 ## To improve
 Please raise a PR to add it with:
